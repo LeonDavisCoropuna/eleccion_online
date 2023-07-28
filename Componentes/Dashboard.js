@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-export default function Dashboard({children}) {
+import Head from "next/head"
+export default function Dashboard({children,pagina}) {
   const [user, setUser] = useState({
     username: "",
     admin: 0,
@@ -26,14 +27,15 @@ export default function Dashboard({children}) {
   }
   return (
     <div>
-      <h1>Dasbord</h1>
-      <pre>
+      <h1>Header</h1>
+      <Head  >
+        <title>{pagina}</title>
+      </Head>
         <div>
           <div>{user.username}</div>
         </div>
-      </pre>
-      <button onClick={() => logout()}>Logout</button>
-      {children}
+        <button onClick={() => logout()}>Logout</button>
+        {children}
     </div>
   );
 }

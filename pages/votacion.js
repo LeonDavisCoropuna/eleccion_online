@@ -14,7 +14,7 @@ export default function Votacion() {
   }
   return (
     <div>
-      <Dashboard>
+      <Dashboard pagina={"Votacion"}>
         <div>
           {tableCandidatos.length > 0 ?  (<table>
             <thead>

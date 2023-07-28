@@ -16,7 +16,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(credentials);
-    const res = await axios.post("/api/auth/login", credentials);
+    const res = await axios.post("/api/services/login", credentials);
     if(res.status === 200){
       router.push('/votacion');
     }
