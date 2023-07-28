@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Head from "next/head"
-export default function Dashboard({children,pagina}) {
+export default function Header({children,pagina}) {
   const [user, setUser] = useState({
     username: "",
     admin: 0,

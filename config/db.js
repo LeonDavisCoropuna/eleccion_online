@@ -4,7 +4,7 @@ const pool = createPool({
   user: "root",
   password: "",
   port: 3306,
-  database: "eleccion_online",
+  database: "bananas_corp",
 });
 
 export { pool };

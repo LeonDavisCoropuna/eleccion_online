@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Dashboard from "../Componentes/Dashboard";
+import Header from "../Componentes/Header";
 export default function Votacion() {
   const [tableCandidatos,setTablaCandidatos] = useState([]);
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function Votacion() {
   }
   return (
     <div>
-      <Dashboard pagina={"Votacion"}>
+      <Header pagina={"Votacion"}>
         <div>
           {tableCandidatos.length > 0 ?  (<table>
             <thead>
@@ -33,7 +33,7 @@ export default function Votacion() {
           </tbody>
           </table>) : (<div>Vacio</div>)}        
         </div>
-      </Dashboard>
+      </Header>
       
     </div>
   );
