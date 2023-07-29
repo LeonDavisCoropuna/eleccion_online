@@ -74,8 +74,7 @@ export default function Votacion() {
     setIsOpen(false);
     setIsSuccess(true)
 
-  };
-  return (
+  };return (
       <div>
         <Layout pagina={"Votacion"}>
           <Time time={10} />
@@ -108,7 +107,9 @@ export default function Votacion() {
                                 type="radio"
                                 name="partido"
                                 value={e.id}
-                                onChange={() => setVoto({...voto,id_partido: e.id})}
+                                onChange={() =>
+                                    setVoto({ ...voto, id_partido: e.id })
+                                }
                             />
                           </td>
                         </tr>
@@ -116,9 +117,9 @@ export default function Votacion() {
                     </tbody>
                   </table>
                   <Success
-                    show={isSuccess}
-                    handleClose={logout}
-                    isSuccess={success}
+                      show={isSuccess}
+                      handleClose={logout}
+                      isSuccess={success}
                   />
                   <Verify
                       isOpen={isOpen}
@@ -127,8 +128,8 @@ export default function Votacion() {
                       text={"Estas seguro de tu voto?"}
                   />
                   <button onClick={(e) => {
-                    e.preventDefault()
-                    setIsOpen(true)
+                    e.preventDefault();
+                    setIsOpen(true);
                   }}>Votar</button>
                 </form>
             ) : (
