@@ -1,4 +1,4 @@
-import { pool } from "@/ldavis/config/db";
+import { pool } from "@/ldavis/Data/config/db";
 
 export default async function newHandle(req, res) {
   const { username, password } = req.body;
