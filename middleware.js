@@ -12,7 +12,6 @@ export async function middleware(request) {
         new TextEncoder().encode("secret")
     );
     console.log(payload);
-
     if (payload.userType === 1 && request.nextUrl.pathname === "/votacion") {
       // Usuario con userType 1 puede acceder a /votacion, pero no a /resultado
       return NextResponse.next();
