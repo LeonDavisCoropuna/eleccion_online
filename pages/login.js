@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
 import { useRouter } from 'next/router';
 import UserRepository from "@/ldavis/Data/Repositorio/UserRepository";
-import cookie from "cookie";
-import jwt from "jsonwebtoken";
 export default function LoginPage() {
   const [credentials, setCredentials] = useState({
     username: '',
@@ -22,15 +19,19 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await UserRepository.getUsers(credentials);
-    if (res.status === 200) {
-      if (res.data.userType === 1) {
-        router.push("/votacion")
-      } else if (res.data.userType === 2) {
-        router.push("/resultado")
-      }
-      else{
-        router.push("/")
-      }
+    try{
+        if (res.status === 200) {
+          if (res.data.userType === 1) {
+            router.push("/votacion")
+          } else if (res.data.userType === 2) {
+            router.push("/resultado")
+          }
+          else{
+            router.push("/")
+          }
+        }
+    } catch (error){
+      console.log(error);
     }
   }
   return (

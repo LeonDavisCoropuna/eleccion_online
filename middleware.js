@@ -20,7 +20,7 @@ export async function middleware(request) {
       // Usuario con userType 2 puede acceder a /resultado, pero no a /votacion
       return NextResponse.next();
     } else {
-      // En cualquier otro caso, redireccionar a la página de inicio u otra página apropiada
+      // En cualquier otro caso, redireccionar a la página de inicio
       return NextResponse.redirect(new URL("/", request.url));
     }
   } catch (err) {

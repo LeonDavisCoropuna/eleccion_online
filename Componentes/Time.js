@@ -10,7 +10,6 @@ export default function Time({time = 10}) {
         const timer = setInterval(() => {
             setExp((prevTime) => prevTime - 1);
         }, 1000);
-
         return () => {
             clearInterval(timer);
         };
@@ -25,7 +24,6 @@ export default function Time({time = 10}) {
 
     const logout = async () => {
         try {
-            const res = await axios.post("api/auth/logout");
             router.push("/");
         } catch (err) {
             console.log(err);
@@ -42,7 +40,7 @@ export default function Time({time = 10}) {
 
     return (
         <div>
-            {formatTime(exp)}
+            Tiempo restante: {formatTime(exp)}
         </div>
     );
 }

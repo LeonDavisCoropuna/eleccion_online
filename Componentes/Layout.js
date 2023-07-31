@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Verify from "@/ldavis/Componentes/Verify";
+import Link from "next/link";
 
 export default function Layout({ children, pagina ,time = 10}) {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function Layout({ children, pagina ,time = 10}) {
           <title>{pagina}</title>
         </Head>
         <div>
-          <div>{username}</div>
+          <div>Username: {username}</div>
         </div>
           <Verify
               isOpen={isOpen}
@@ -44,7 +45,7 @@ export default function Layout({ children, pagina ,time = 10}) {
             setIsOpen(true)
         }}>Logout</button>
         {children}
-          <h1>FOOOOOTEER</h1>
+          <h1>Footer</h1>
       </div>
   );
 }
