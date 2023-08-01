@@ -17,13 +17,12 @@ const handleChange = (e) => {
     [e.target.name]: e.target.value,
   });
 };
+```
+### 2. Composición de Componentes
+Next.js promueve la composición de **componentes**, lo que permite construir componentes más complejos a partir de componentes más pequeños y **reutilizables**.
 
-2. Composición de Componentes
-Next.js promueve la composición de componentes, lo que permite construir componentes más complejos a partir de componentes más pequeños y reutilizables.
-
-/Componentes/Layout.js
-jsx
-Copy code
+###/Componentes/Layout.js
+```javascript
 return (
   <div>
     <h1>Header</h1>
@@ -75,3 +74,21 @@ return (
     </div>
   </Modal>
 );
+```
+### 3.Fetching Data on the Client Side
+En este enfoque, se realiza la solicitud a la API directamente desde el cliente (el navegador) utilizando JavaScript, generalmente con la ayuda de la función fetch() o 
+mediante librerías como **axios**.
+Este estilo se puede implementar dentro de componentes de función utilizando el hook useEffect para realizar la llamada a la API y **actualizar** el **estado** del 
+componente con los datos recibidos
+
+###/Componentes/Layout.js
+```javascript
+const [username, setUsername] = useState(0);
+  useEffect(() => {
+    getProfile();
+  }, []);
+  const getProfile = async () => {
+    const res = await axios.get("/api/profile");
+    setUsername(res.data.username);
+  };
+```
