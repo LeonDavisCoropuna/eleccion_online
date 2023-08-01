@@ -45,9 +45,9 @@ return (
     <h1>Footer</h1>
   </div>
 );
-/Componentes/Verify.js
-jsx
-Copy code
+```
+### /Componentes/Verify.js
+```javascript
 return (
   <Modal
     isOpen={isOpen}
