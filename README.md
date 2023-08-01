@@ -25,10 +25,7 @@ Next.js promueve la composición de **componentes**, lo que permite construir co
 ```javascript
 return (
   <div>
-    <h1>Header</h1>
-    <Head>
-      <title>{pagina}</title>
-    </Head>
+    {/*...*/}
     <div>
       <div>Username: {username}</div>
     </div>
@@ -38,25 +35,15 @@ return (
       onConfirm={logout}
       text={"Estas seguro de cerrar sesion?"}
     />
-    <button onClick={() => {
-      setIsOpen(true);
-    }}>Logout</button>
-    {children}
-    <h1>Footer</h1>
+    {/*...*/}
   </div>
 );
 ```
 ### /Componentes/Verify.js
+Componente que genera una ventana modal para verificar la desicion de un usuario
 ```javascript
 return (
-  <Modal
-    isOpen={isOpen}
-    onRequestClose={onRequestClose}
-    contentLabel="Confirmación"
-    ariaHideApp={false}
-    className="modal-dialog"
-  >
-    <div className="modal-content container ">
+    {/*...*/}
       <div className="modal-header">
         <h5 className="modal-title">{text}</h5>
         <button type="button" className="close" onClick={onRequestClose}>
@@ -71,8 +58,7 @@ return (
           No
         </button>
       </div>
-    </div>
-  </Modal>
+    {/*...*/}
 );
 ```
 ### 3.Fetching Data on the Client Side
@@ -93,21 +79,36 @@ const [username, setUsername] = useState(0);
   };
 ```
 ### 4. Gestión de Sesiones con Cookies y JWT o "Session Management with Cookies and JWT" en inglés.
-#### 4.1 Uso de Cookies: El código utiliza la librería cookie para acceder a las cookies enviadas en la solicitud (req.cookies) y también para crear una cookie de logout al establecerla en la respuesta (res.setHeader("Set-Cookie", serialized)). Las cookies se utilizan para almacenar el token de autenticación y para eliminar la cookie al cerrar la sesión.
-#### 4.2 Uso de JWT (JSON Web Tokens): Se utiliza la función verify de la librería jsonwebtoken para verificar la validez del token de autenticación almacenado en la cookie MyTokenName. Si el token es válido, se procede a eliminar la cookie y cerrar la sesión.
-#### 4.3 Gestión de Sesiones: La función es responsable de gestionar la sesión del usuario. Si el token de autenticación no está presente o no es válido, se responde con un error (401 - Unauthorized) indicando que no se encuentra un token válido o que el usuario no está autenticado.
+4.1 Uso de Cookies: El código utiliza la librería cookie para acceder a las cookies enviadas en la solicitud (req.cookies) y también para crear una cookie de logout al establecerla en la respuesta (res.setHeader("Set-Cookie", serialized)). Las cookies se utilizan para almacenar el token de autenticación y para eliminar la cookie al cerrar la sesión.
+4.2 Uso de JWT (JSON Web Tokens): Se utiliza la función verify de la librería jsonwebtoken para verificar la validez del token de autenticación almacenado en la cookie MyTokenName. Si el token es válido, se procede a eliminar la cookie y cerrar la sesión.
+4.3 Gestión de Sesiones: La función es responsable de gestionar la sesión del usuario. Si el token de autenticación no está presente o no es válido, se responde con un error (401 - Unauthorized) indicando que no se encuentra un token válido o que el usuario no está autenticado.
 
 ### /pages/api/services/login.js
-
+Generar Token (iniciar sesion)
 ```javascript
-import { serialize } from "cookie";
-import { verify } from "jsonwebtoken";
-export default function logoutHandler(req, res) {
-  const { MyTokenName } = req.cookies;
-  if (!MyTokenName) {
-    return res.status(401).json({ err: "No token" });
-  }
-  try {
+if(username == userValidate.username && password == userValidate.password){
+  const token = jwt.sign(
+    {
+      exp: expirationTime,
+      id: userValidate.id,
+      username: userValidate.username,
+      userType: userValidate.userType,
+    },
+    "secret"
+  );
+    const serialized = serialize("MyTokenName", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: expirationTime, // tiempo del token
+    path: "/",
+  });
+  res.setHeader("Set-Cookie", serialized);
+  return res.status(200).json({ message: "Login successfully", userType: userValidate.userType  });
+}
+```
+Finalizar Token (cerrar sesion)
+```javascript
     verify(MyTokenName, "secret");
     const serialized = serialize("MyTokenName", null, {
       httpOnly: true,
@@ -118,8 +119,26 @@ export default function logoutHandler(req, res) {
     });
     res.setHeader("Set-Cookie", serialized);
     return res.status(200).json("Logout Succesfully");
-  } catch (err) {
-    return res.status(401).json({ err: "No token" });
-  }
-}
 ```
+### 5. Clases y Métodos Estáticos
+En este estilo, se utiliza una clase para encapsular funcionalidades relacionadas en métodos estáticos que pueden ser invocados sin necesidad de crear una instancia de la clase.
+Uso de Clases: La clase UserRepository encapsula métodos relacionados con el acceso a la base de datos, en este caso, obtener usuarios.
+### /Data/Repositorio/UserRepository.js
+```javascript
+import axios from 'axios';
+class UserRepository {
+    static async getUsers(user) {
+        try {
+            const response = await axios.post('/api/services/login',user);
+            return response;
+        } catch (error) {
+            console.error('Error al obtener usuarios desde la base de datos:', error);
+            throw error;
+        }
+    }
+    // Otras operaciones de acceso a la base de datos utilizando Axios
+}
+export default UserRepository;
+```
+
+
