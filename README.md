@@ -21,7 +21,7 @@ const handleChange = (e) => {
 ### 2. Composición de Componentes
 Next.js promueve la composición de **componentes**, lo que permite construir componentes más complejos a partir de componentes más pequeños y **reutilizables**.
 
-###/Componentes/Layout.js
+### /Componentes/Layout.js
 ```javascript
 return (
   <div>
@@ -81,7 +81,7 @@ mediante librerías como **axios**.
 Este estilo se puede implementar dentro de componentes de función utilizando el hook useEffect para realizar la llamada a la API y **actualizar** el **estado** del 
 componente con los datos recibidos
 
-###/Componentes/Layout.js
+### /Componentes/Layout.js
 ```javascript
 const [username, setUsername] = useState(0);
   useEffect(() => {
