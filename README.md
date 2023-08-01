@@ -21,7 +21,7 @@ const handleChange = (e) => {
 ### 2. Composición de Componentes
 Next.js promueve la composición de **componentes**, lo que permite construir componentes más complejos a partir de componentes más pequeños y **reutilizables**.
 
-### /Componentes/Layout.js
+### /componentes/Layout.js
 ```javascript
 return (
   <div>
@@ -39,7 +39,7 @@ return (
   </div>
 );
 ```
-### /Componentes/Verify.js
+### /componentes/Verify.js
 Componente que genera una ventana modal para verificar la desicion de un usuario
 ```javascript
 return (
@@ -67,7 +67,7 @@ mediante librerías como **axios**.
 Este estilo se puede implementar dentro de componentes de función utilizando el hook useEffect para realizar la llamada a la API y **actualizar** el **estado** del 
 componente con los datos recibidos
 
-### /Componentes/Layout.js
+### /componentes/Layout.js
 ```javascript
 const [username, setUsername] = useState(0);
   useEffect(() => {
@@ -123,7 +123,7 @@ Finalizar Token (cerrar sesion)
 ### 5. Clases y Métodos Estáticos
 En este estilo, se utiliza una clase para encapsular funcionalidades relacionadas en métodos estáticos que pueden ser invocados sin necesidad de crear una instancia de la clase.
 Uso de Clases: La clase UserRepository encapsula métodos relacionados con el acceso a la base de datos, en este caso, obtener usuarios.
-### /Data/Repositorio/UserRepository.js
+### /data/repositorio/UserRepository.js
 ```javascript
 import axios from 'axios';
 class UserRepository {
