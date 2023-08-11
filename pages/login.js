@@ -1,11 +1,13 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import UserRepository from "@/ldavis/Data/Repositorio/UserRepository";
+import Link from "next/link";
 export default function LoginPage() {
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
   });
+  const [login,setLogin] = useState(1);
 
   const handleChange = (e) => {
     setCredentials({
@@ -15,24 +17,26 @@ export default function LoginPage() {
   };
 
   const router = useRouter();
-//Enviar por axios un objeto a api/services/login para autenticar
+//Enviar por axios un objeto a api/authentication/login para autenticar
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await UserRepository.getUsers(credentials);
     try{
-        if (res.status === 200) {
-          if (res.data.userType === 1) {
-            router.push("/votacion")
-          } else if (res.data.userType === 2) {
-            router.push("/resultado")
-          }
-          else{
-            router.push("/")
-          }
+      const res = await axios.post("/api/authentication/login",credentials);
+      console.log(res)
+      if (res.status === 200) {
+        if (res.data.userType === 1) {
+          router.push("/votacion")
+        } else if (res.data.userType === 2) {
+          router.push("/resultado")
         }
-    } catch (error){
-      console.log(error);
+        else{
+          router.push("/")
+        }
+      }
+    } catch (e){
+      setLogin(0);
     }
+
   }
   return (
       <div className="container mt-5">
@@ -61,10 +65,12 @@ export default function LoginPage() {
                 value={credentials.password}
             />
           </div>
+          {login === 1 ? (<div></div>) : (<div className="text-danger">Contraseña o usuario incorrecta</div>)}
           <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
             Login
           </button>
         </form>
+        <Link href={"/"}>Home</Link>
       </div>
   );
 }

@@ -9,7 +9,7 @@ export default function profileHandler(req, res) {
 
     const user = verify(MyTokenName, "secret");
     console.log(user)
-    return res.json({username: user.username, exp: user.exp/60,id:user.id});
+    return res.json({username: user.username,id:user.id});
   } catch (err) {
     return res.status(401).json({ error: "Invalid token" });
   }

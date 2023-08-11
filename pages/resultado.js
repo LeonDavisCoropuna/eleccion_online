@@ -1,5 +1,5 @@
-import Layout from "@/ldavis/Componentes/Layout";
-import Time from "@/ldavis/Componentes/Time";
+import Layout from "@/ldavis/componentes/Layout";
+import Time from "@/ldavis/componentes/Time";
 import React from "react";
 
 export default function Resultado(){
